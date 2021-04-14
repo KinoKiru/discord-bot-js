@@ -36,39 +36,26 @@ async function get(msg, url) {
                 { headers },
             )).json();
 
-            const songs = await Promise.all(result.items.map(async ({ track }) => {
-                duration = msToSeconds(track.duration_ms);
-                const song = await searchYT(track.name+ ' ' + track.artists[0].name);
-                if (song) {
-                    return {
-                        title: track.name,
-                        url: song.url,
-                        duration: secondsToTime(duration),
-                        durationSeconds: duration,
-                        thumbnail: (track.album.images[0] || {}).url
-                    };
-                } else {
-                    msg.channel.send('Could not find a youtube equivalent of ' + track.name);
+            const songs = (await Promise.all(result.tracks.items.map(async ({track}) => {
+                const song = await searchYT(track.artists[0].name + ' ' + track.name);
+                if (!song) {
+                    await msg.channel.send('Could not find a youtube equivalent of ' + track.name);
+                    return undefined;
                 }
-            }));
+                return song;
+            }))).filter(m => m !== undefined);
+
             return { songs };
+
         } else if (song_id) {
             track = await (await fetch(`https://api.spotify.com/v1/tracks/${song_id}/`,
                 { headers },
             )).json();
 
-            const duration = msToSeconds(track.duration_ms);
+
             let song = await searchYT(track.name + ' ' + track.artists[0].name);
             console.log(song);
-            if (song) {
-                song = {
-                    title: track.name,
-                    url: song.url,
-                    duration: secondsToTime(duration),
-                    durationSeconds: duration,
-                    thumbnail: (track.album.images[0] || {}).url
-                };
-            } else {
+            if (!song) {
                 msg.channel.send('Could not find a youtube equivalent of ' + track.name);
             }
             return {song};

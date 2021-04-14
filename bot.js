@@ -18,10 +18,11 @@ const owo = require('./Extern_Commands/OwO');
 const join = require('./Extern_Commands/SoundCommands/Join');
 const leave = require('./Extern_Commands/SoundCommands/leave');
 const queueDisplay = require('./Extern_Commands/SoundCommands/queue');
-const playSongs = require('./Extern_Commands/SoundCommands/play');
+const {execute:playSongs} = require('./Extern_Commands/SoundCommands/play');
 const stop = require('./Extern_Commands/SoundCommands/stop');
 const skip = require('./Extern_Commands/SoundCommands/skip');
 const pingy = require('./Extern_Commands/ping');
+const now = require('./Extern_Commands/SoundCommands/now');
 //#endregion
 
 //#region Startup
@@ -162,13 +163,17 @@ client.on('message', async message => {
             await playSongs(message, serverQueue, queue);
             break;
         case config.prefix + Commandfile.skip:
-            skip(message, serverQueue);
+            skip(message, serverQueue, queue);
             break;
         case config.prefix + Commandfile.stop:
             stop(message, serverQueue);
             break;
         case config.prefix + Commandfile.queue:
             queueDisplay(serverQueue, message);
+            break;
+        case config.prefix + Commandfile.now:
+          now(message,serverQueue);
+
             break;
     }
     //#endregion

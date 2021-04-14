@@ -134,6 +134,6 @@ function secondsToTime(seconds) {
     return (hours === '0' ? '' : hours.padStart(2, '0') + ':') + minutes.padStart(2, '0') + ':' + seconds2.padStart(2, '0');
 }
 
-module.exports = execute;
+module.exports = {execute, play}
 
 

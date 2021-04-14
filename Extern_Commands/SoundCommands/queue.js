@@ -4,7 +4,8 @@ function queue(serverQueue, message) {
             return (index + 1) + ") " + song.title + " " + song.duration;
         }).join('\n');
         message.channel.send('```apache\n' +
-            allSongs +
+            allSongs.replace(/\[/g,"").replace(/\]/g,"") +
+
                 '```');
     } else {
         message.channel.send("Queue is empty");

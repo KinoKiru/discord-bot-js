@@ -9,6 +9,6 @@ function stop(message, serverQueue) {
         return message.channel.send("There is no song that I could stop!");
 //is er wel muziek spelend? dan maakt hij de queue leeg en dan eindigd hij het spelend nummer
     serverQueue.songs = [];
-    serverQueue.connection.dispatcher.end();
+    serverQueue.connection.disconnect();
 }
 module.exports = stop;

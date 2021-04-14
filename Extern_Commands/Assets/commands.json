@@ -15,5 +15,6 @@
   "skip" : "skip",
   "meep" : "meep",
   "queue" : "queue",
-  "ping" : "ping"
+  "ping" : "ping",
+  "now" : "now"
 }
