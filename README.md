@@ -22,7 +22,7 @@
 <strong>De Owner Commands:</strong><br>
 !restart : de bot restart en hij geeft een shutdown melding en geeft ook een melding als hij weer online staat.<br>
 !shutdown : de bot gaat offline en geeft een response terug waarneer hij offline gaat.<br>
-!delete *Amount* : delete het aangegeven aantal berichten(kunnen niet ouder zijn dan 14 dagen). <br>
+!delete *Amount* : delete het aangegeven aantal berichten (kunnen niet ouder zijn dan 14 dagen). <br>
 </p>
 
 <h1>Libraries</h1><br>
