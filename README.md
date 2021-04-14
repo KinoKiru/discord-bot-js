@@ -9,7 +9,7 @@
 !jansmit : Geeft je de volledige song text van Boom Boom Bailando.<br>
 !pubg : Geeft je dagelijkse dosis pubg.<br>
 !owo : geeft je een mooie response op je bericht.<br>
-!meep engels : wat 18+ content :flushed:.<br>
+!meep *engels* : wat 18+ content :flushed:.<br>
 
 <strong>De music Commands:</strong><br>
 !join : De bot joined je voice channel.<br>
