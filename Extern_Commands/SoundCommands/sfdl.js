@@ -38,7 +38,7 @@ async function get(msg, url) {
 
             const songs = await Promise.all(result.items.map(async ({ track }) => {
                 duration = msToSeconds(track.duration_ms);
-                const song = await searchYT(track.name);
+                const song = await searchYT(track.name+ ' ' + track.artists[0].name);
                 if (song) {
                     return {
                         title: track.name,
@@ -58,7 +58,8 @@ async function get(msg, url) {
             )).json();
 
             const duration = msToSeconds(track.duration_ms);
-            let song = await searchYT(track.name);
+            let song = await searchYT(track.name + ' ' + track.artists[0].name);
+            console.log(song);
             if (song) {
                 song = {
                     title: track.name,
