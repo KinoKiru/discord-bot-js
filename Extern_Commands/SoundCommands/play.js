@@ -1,6 +1,7 @@
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
 const ytsr = require('ytsr');
+const sfdl = require('./sfdl');
 
 async function execute(message, serverQueue, queue) {
     const args = message.content.split(" ");
@@ -26,6 +27,7 @@ async function execute(message, serverQueue, queue) {
     // hij pakt de info uit de message en pakt het 2de deel van de message(dit zou de link moeten zijn) kijkt hij op het een echte youtube link is.
     let song;
     // deze is om te kijken of ik een argument heb gekregen
+    let start;
     if (args[1]) {
         // dit is voor 1 liedje waar de link voor is meegegeven
         if (args[1].startsWith('https://www.youtube.com/watch?v')) {
@@ -46,6 +48,7 @@ async function execute(message, serverQueue, queue) {
         } else if (args[1].startsWith('https://www.youtube.com/playlist?list=')) {
             // begint het 2de argument aka de link met een linkje voor een paylist
             const songInfo = await ytpl(args[1]);
+            start = serverQueue.songs.length === 0;
             const songs = songInfo.items.map(({title, url, duration, bestThumbnail}) => {
                 return {
                     title,
@@ -56,7 +59,21 @@ async function execute(message, serverQueue, queue) {
             });
             serverQueue.songs.push(...songs);
             await message.channel.send(`Added '${songs.length}' songs to the queue!`)
-        } else {
+        }else if(args[1].startsWith('https://open.spotify.com/'))
+        {
+        try{
+            const {songs, song} = await sfdl.get(message, args[1])
+            if (songs){
+                start = serverQueue.songs.length === 0;
+                serverQueue.songs.push(...songs);
+                await message.channel.send(`Added **${songs.length}** items to the queue`);
+            }else if (song)
+            {
+             serverQueue.songs.push(song);
+            }
+        }catch (error){message.channel.send(error)};
+        }
+        else {
             //hier pak ik de search words en doe ik die blij elkaar
             const words = args.slice(1).join();
             console.log(words)
@@ -81,21 +98,19 @@ async function execute(message, serverQueue, queue) {
         message.channel.send('Ewwow You Wneed two swend cowwect uwl ow pawametews');
     }
 
-    await play(message, serverQueue, queue);
+    await play(message, serverQueue, queue, start);
 }
 
-async function play(msg, serverQueue, queue) {
+async function play(msg, serverQueue, queue, start=false) {
     const song = serverQueue.songs[0];
     if (song === undefined) {
         queue.delete(msg.guild.id);
         serverQueue.connection.disconnect();
         return msg.channel.send('No more songs!')
     }
-    if (serverQueue.songs.length === 1)
+
+    if (serverQueue.songs.length === 1 || start)
     {
-
-        //bij fucky wucky gaat die alles weg doen
-
         // hier speelt hij het lied af, als hij gefinished is dan gaat hij naar het volgende nummer
         const dispatcher = serverQueue.connection
             .play(ytdl(song.url))
@@ -104,14 +119,11 @@ async function play(msg, serverQueue, queue) {
                 play(msg, serverQueue, queue);
             })
             .on('error', console.error);
-
-
         //als hij t goed doet dan deelt hij de liedjes sound gedeeld door 5? en dan geeft hij een message met de song title
         dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
         serverQueue.textChannel.send(`Start playing: **${song.title}**`);
     }else{
        msg.channel.send('added song to queue');
-
     }
 }
 

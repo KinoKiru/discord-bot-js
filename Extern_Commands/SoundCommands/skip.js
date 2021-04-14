@@ -8,6 +8,6 @@ function skip(message, serverQueue) {
     if (!serverQueue)
         return message.channel.send("There is no song that I could skip!");
     //hij kijkt in de queue ook of je in de voice channel zit, dan pakt hij de 'speler' en beindigt hij de spelend nummer
-    serverQueue.connection.dispatcher.end();
+    serverQueue.connection.end();
 }
 module.exports = skip
