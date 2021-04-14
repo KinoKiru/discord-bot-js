@@ -1,0 +1,6 @@
+{
+  "restart" : "restart",
+  "Shutdown" : "shutdown",
+  "Delete" : "delete",
+  "Info" :  "!restart : De bot restart hij geeft ook een response terug. \n !shutdown : de bot gaat offline en geeft een response als dit gelukt is. \n !delete *Amount* : dit delete messages."
+}

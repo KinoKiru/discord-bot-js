@@ -1,0 +1,18 @@
+{
+  "Zaad" : "zaad",
+  "Embed" : "makeembed",
+  "help" : "commands",
+  "helpText" : "De Commands: \n !zaad : geeft een text terug.\n !makeembed *titel* *Author* *desc* : hier mee kan je een Embed maken.\n !userinfo : geeft je discord naam + je User ID en nog wat andere info. \n !jansmit : Geeft je de volledige song text van Boom Boom Bailando. \n !pubg : Geeft je dagelijkse dosis pubg. \n !owo : geeft je een mooie response.  \n !meep *engels* : wat 18+ content \uD83D\uDE33.",
+  "musicCommands" : "!join : De bot joined je voice channel. \n !play *youtube link* / *youtube playlist* / *zoekterm* : speelt de youtube link af in de voice channel. \n !leave : de bot stopt met spelen en leaved. \n !skip : skipt het nummer die nu aan het spelen is. \n !stop : stop de bot in zijn geheel en de liedjes. \n !queue : laat de queue van liedjes zien",
+  "info" : "userinfo",
+  "jan" : "jansmit",
+  "Pubg" : "pubg",
+  "OwO" : "owo",
+  "join" : "join",
+  "leave" : "leave",
+  "play" : "play",
+  "stop" : "stop",
+  "skip" : "skip",
+  "meep" : "meep",
+  "queue" : "queue"
+}
