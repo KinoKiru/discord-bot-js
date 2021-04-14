@@ -1,5 +1,5 @@
 function queue(serverQueue, message) {
-    if (serverQueue && serverQueue.length !== 0) {
+    if ( serverQueue !== undefined && serverQueue.songs.length !== 0) {
         const allSongs = serverQueue.songs.slice(0, 30).map((song, index) => {
             return (index + 1) + ") " + song.title + " " + song.duration;
         }).join('\n');

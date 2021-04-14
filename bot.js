@@ -158,7 +158,7 @@ client.on('message', async message => {
             leave(serverQueue, message);
             break;
         case config.prefix + Commandfile.play:
-            await playSongs(message, serverQueue);
+            await playSongs(message, serverQueue, queue);
             break;
         case config.prefix + Commandfile.skip:
             skip(message, serverQueue);

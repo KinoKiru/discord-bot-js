@@ -2,7 +2,7 @@ const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
 const ytsr = require('ytsr');
 
-async function execute(message, serverQueue) {
+async function execute(message, serverQueue, queue) {
     const args = message.content.split(" ");
     // je zou !play ook kunnen gebruiken ipv join
     const voiceChannel = message.member.voice.channel;
@@ -35,14 +35,16 @@ async function execute(message, serverQueue) {
             if (songInfo === null || songInfo === undefined) {
                 message.channel.send('Geef een geldige youtube link mee');
             }
-            // is de link goed, dan gooi ik die in song, song bestaat uit de title,url en duration van het nummer die haal ik allemaal uit song info
-            song = {
+
+            const songs ={
                 title: songInfo.videoDetails.title,
                 url: songInfo.videoDetails.video_url,
-                duration: secondsToTime(songInfo.videoDetails.lengthSeconds)
-            };
+                duration: (songInfo.videoDetails.lengthSeconds)
+            }
+            serverQueue.songs.push(songs);
+            // is de link goed, dan gooi ik die in song, song bestaat uit de title,url en duration van het nummer die haal ik allemaal uit song info
         } else if (args[1].startsWith('https://www.youtube.com/playlist?list=')) {
-            // begint het 2de argument aka de link met een linkje voor een paylist?
+            // begint het 2de argument aka de link met een linkje voor een paylist
             const songInfo = await ytpl(args[1]);
             const songs = songInfo.items.map(({title, url, duration, bestThumbnail}) => {
                 return {
@@ -53,11 +55,11 @@ async function execute(message, serverQueue) {
                 };
             });
             serverQueue.songs.push(...songs);
-            song = songs[0];
             await message.channel.send(`Added '${songs.length}' songs to the queue!`)
         } else {
             //hier pak ik de search words en doe ik die blij elkaar
             const words = args.slice(1).join();
+            console.log(words)
             //hier pak ik de zoek woorden
             const songInfo = await ytsr.getFilters(words);
             //hier pakt hij de song die een video is
@@ -67,42 +69,50 @@ async function execute(message, serverQueue) {
             //en hier gooi ik de url erin met de optie dat het er maar 1 mag zijn
             const searchResults = await ytsr(filter1.url, options);
             //en dan gooi ik alles in song
-            song = {
+            const  songs = {
                 title: searchResults.items[0].title,
                 url: searchResults.items[0].url,
                 duration: (searchResults.items[0].duration)
             };
+            serverQueue.songs.push(songs);
         }
     } else {
         // dit is de eerste foutcode die hij gaat terug geven aan de user dit betekent dat er niks is meegegven
         message.channel.send('Ewwow You Wneed two swend cowwect uwl ow pawametews');
     }
 
-    await play(message, serverQueue);
+    await play(message, serverQueue, queue);
 }
 
-async function play(msg, serverQueue) {
+async function play(msg, serverQueue, queue) {
     const song = serverQueue.songs[0];
     if (song === undefined) {
-        serverQueue.connection.destroy();
-        serverQueue.delete(msg.guild.id);
+        queue.delete(msg.guild.id);
+        serverQueue.connection.disconnect();
         return msg.channel.send('No more songs!')
     }
+    if (serverQueue.songs.length === 1)
+    {
 
-    console.log('playing song', song);
+        //bij fucky wucky gaat die alles weg doen
 
-    // hier speelt hij het lied af, als hij gefinished is dan gaat hij naar het volgende nummer
-    const dispatcher = serverQueue.connection
-        .play(ytdl(song.url))
-        .on('finish', () => {
-            serverQueue.songs.shift();
-            play(msg, serverQueue);
-        })
-        .on('error', console.error);
+        // hier speelt hij het lied af, als hij gefinished is dan gaat hij naar het volgende nummer
+        const dispatcher = serverQueue.connection
+            .play(ytdl(song.url))
+            .on('finish', () => {
+                serverQueue.songs.shift();
+                play(msg, serverQueue, queue);
+            })
+            .on('error', console.error);
 
-    //als hij t goed doet dan deelt hij de liedjes sound gedeeld door 5? en dan geeft hij een message met de song title
-    dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-    serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+
+        //als hij t goed doet dan deelt hij de liedjes sound gedeeld door 5? en dan geeft hij een message met de song title
+        dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+        serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+    }else{
+       msg.channel.send('added song to queue');
+
+    }
 }
 
 function secondsToTime(seconds) {
