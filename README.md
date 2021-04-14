@@ -10,6 +10,7 @@
 !pubg : geeft je dagelijkse dosis pubg.<br>
 !owo : geeft je een mooie response op je bericht.<br>
 !meep *engels* : wat 18+ content :flushed:.<br>
+!ping : geeft je ping terug.<br>
 
 <strong>De music Commands:</strong><br>
 !join : de bot joined je voice channel.<br>
