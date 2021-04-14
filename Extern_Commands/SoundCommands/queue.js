@@ -9,6 +9,7 @@ function queue(serverQueue, message) {
     } else {
         message.channel.send("Queue is empty");
     }
+
 }
 
 module.exports = queue;

@@ -21,6 +21,7 @@ const queueDisplay = require('./Extern_Commands/SoundCommands/queue');
 const playSongs = require('./Extern_Commands/SoundCommands/play');
 const stop = require('./Extern_Commands/SoundCommands/stop');
 const skip = require('./Extern_Commands/SoundCommands/skip');
+const pingy = require('./Extern_Commands/ping');
 //#endregion
 
 //#region Startup
@@ -171,6 +172,12 @@ client.on('message', async message => {
             break;
     }
     //#endregion
+
+    switch (command)
+    {
+        case config.prefix+Commandfile.ping:
+            pingy(message);
+    }
 });
 //#region functions
 client.on('voiceStateUpdate', (oldMember, newMember) => {
