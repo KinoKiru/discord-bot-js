@@ -20,6 +20,7 @@
 !stop : stop de bot in zijn geheel en de liedjes.<br>
 !queue : laat de queue van liedjes zien.<br>
 !now : laat het current liedje zien.<br>
+!shuffle : Shuffeld de queue behalve het eerste nummer.<br>
 
 <strong>De Owner Commands:</strong><br>
 !restart : de bot restart en hij geeft een shutdown melding en geeft ook een melding als hij weer online staat.<br>
