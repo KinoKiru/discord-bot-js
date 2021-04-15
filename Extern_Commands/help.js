@@ -5,7 +5,7 @@ const OwnerCMD = require('./Assets/OwnerCommands.json')
 function help (message, isBotOwner)
 {
     if (isBotOwner) {
-        message.channel.send(new MessageEmbed()
+        message.author.send(new MessageEmbed()
             .setTitle("Commands")
             .addField('De music Commands', Commandfile.musicCommands)
             .addField('De Owner Commands', OwnerCMD.Info)
@@ -13,7 +13,7 @@ function help (message, isBotOwner)
             .setDescription(Commandfile.helpText));
 
     } else {
-        message.channel.send(new MessageEmbed()
+        message.author.send(new MessageEmbed()
             .setTitle("Commands")
             .setColor(1127128)
             .addField('De music Commands', Commandfile.musicCommands)

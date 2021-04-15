@@ -35,6 +35,7 @@ async function get(msg, url) {
             result = await (await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=${offset}&limit=${limit}`,
                 { headers },
             )).json();
+            console.log('babkes', result)
 
             const songs = (await Promise.all(result.tracks.items.map(async ({track}) => {
                 const song = await searchYT(track.artists[0].name + ' ' + track.name);

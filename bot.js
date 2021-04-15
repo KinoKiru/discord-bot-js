@@ -23,6 +23,7 @@ const stop = require('./Extern_Commands/SoundCommands/stop');
 const skip = require('./Extern_Commands/SoundCommands/skip');
 const pingy = require('./Extern_Commands/ping');
 const now = require('./Extern_Commands/SoundCommands/now');
+const shuffle = require('./Extern_Commands/SoundCommands/shuffle');
 //#endregion
 
 //#region Startup
@@ -173,11 +174,11 @@ client.on('message', async message => {
             break;
         case config.prefix + Commandfile.now:
           now(message,serverQueue);
-
             break;
+        case config.prefix + Commandfile.shuffle:
+            shuffle(serverQueue, message);
     }
     //#endregion
-
     switch (command)
     {
         case config.prefix+Commandfile.ping:

@@ -24,8 +24,6 @@ async function execute(message, serverQueue, queue) {
         return message.channel.send('I need the permissions to join and speak in your voice channel!');
     }
 
-    // hij pakt de info uit de message en pakt het 2de deel van de message(dit zou de link moeten zijn) kijkt hij op het een echte youtube link is.
-    let song;
     // deze is om te kijken of ik een argument heb gekregen
     let start;
     if (args[1]) {
@@ -71,11 +69,11 @@ async function execute(message, serverQueue, queue) {
             {
              serverQueue.songs.push(song);
             }
-        }catch (error){message.channel.send(error)};
+        }catch (error){message.channel.send(error)}
         }
         else {
             //hier pak ik de search words en doe ik die blij elkaar
-            const words = args.slice(1).join();
+            const words = args.slice(1).join(' ');
             console.log(words)
             //hier pak ik de zoek woorden
             const songInfo = await ytsr.getFilters(words);
@@ -103,13 +101,14 @@ async function execute(message, serverQueue, queue) {
 
 async function play(msg, serverQueue, queue, start=false) {
     const song = serverQueue.songs[0];
+
     if (song === undefined) {
         queue.delete(msg.guild.id);
         serverQueue.connection.disconnect();
         return msg.channel.send('No more songs!')
     }
 
-    if (serverQueue.songs.length === 1 || start)
+    if (serverQueue.songs.length <= 1 || start)
     {
         // hier speelt hij het lied af, als hij gefinished is dan gaat hij naar het volgende nummer
         const dispatcher = serverQueue.connection
