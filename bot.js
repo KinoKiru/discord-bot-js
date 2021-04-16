@@ -22,6 +22,7 @@ const skip = require('./Extern_Commands/SoundCommands/skip');
 const pingy = require('./Extern_Commands/ping');
 const now = require('./Extern_Commands/SoundCommands/now');
 const shuffle = require('./Extern_Commands/SoundCommands/shuffle');
+const clear = require('./Extern_Commands/SoundCommands/clear');
 //#endregion
 
 //#region Startup
@@ -103,7 +104,7 @@ client.on('message', async message => {
     //hier pak ik de rest van de array
     const param = [...messageArr];
     //dit is alleen voor de owner aka ik
-    let isBotOwner = message.author.id == config.UserId;
+    let isBotOwner = message.author.id === config.UserId;
     // hier maak ik iets aan
     client.delete = new Discord.Collection();
     //zodat andere bots mij niet kunnen gebruiken
@@ -164,10 +165,14 @@ client.on('message', async message => {
             queueDisplay(serverQueue, message);
             break;
         case config.prefix + Commandfile.now:
-          now(message,serverQueue);
+            now(message, serverQueue);
             break;
         case config.prefix + Commandfile.shuffle:
             shuffle(serverQueue, message);
+            break;
+        case config.prefix + Commandfile.clear:
+            clear(serverQueue, message);
+            break;
     }
     //#endregion
     switch (command)

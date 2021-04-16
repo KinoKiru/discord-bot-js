@@ -1,15 +1,23 @@
 const ytsr = require('ytsr');
 const fetch = require('node-fetch');
 let headers;
-fetch('https://open.spotify.com/get_access_token?reason=transport&productType=web_player')
-    .then(res => res.json())
-    .then(json => {
-        headers = { 'Authorization': 'Bearer ' + json['accessToken'] }
-    })
-    .catch(console.log);
+let expires;
+
+async function refreshToken() {
+    try {
+        const token = await (await fetch('https://open.spotify.com/get_access_token?reason=transport&productType=web_player')).json();
+        headers = {'Authorization': 'Bearer ' + token['accessToken']};
+        expires = token['accessTokenExpirationTimestampMs'];
+        console.log('Got meself a new token matey');
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+refreshToken().then();
 
 /**
- * 
+ *
  * Can be used like:
  * const {song, songs} = require('./path/to/sfdl');
  * if (song) {
@@ -24,6 +32,11 @@ fetch('https://open.spotify.com/get_access_token?reason=transport&productType=we
  */
 async function get(msg, url) {
     if (url) {
+
+        if (Date.now() >= expires) {
+            await refreshToken()
+        }
+
         //https://open.spotify.com/playlist/11o2tmMwFcfQ54ZFmgw9wY
         const playlist_id = url.split('/playlist/')[1];
         const song_id = url.split('/track/')[1];
@@ -35,10 +48,10 @@ async function get(msg, url) {
             result = await (await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=${offset}&limit=${limit}`,
                 { headers },
             )).json();
-            console.log('babkes', result)
+
 
             const songs = (await Promise.all(result.tracks.items.map(async ({track}) => {
-                const song = await searchYT(track.artists[0].name + ' ' + track.name);
+                const song = await searchYT(track.artists[0].name + ' ' + track.name, track);
                 if (!song) {
                     await msg.channel.send('Could not find a youtube equivalent of ' + track.name);
                     return undefined;
@@ -46,15 +59,14 @@ async function get(msg, url) {
                 return song;
             }))).filter(m => m !== undefined);
 
-            return { songs };
+            return {songs};
 
-        } else if (song_id) {
+        } else if (song_id) { //dit is voor 1 nummer
             track = await (await fetch(`https://api.spotify.com/v1/tracks/${song_id}/`,
-                { headers },
+                {headers},
             )).json();
 
-
-            let song = await searchYT(track.name + ' ' + track.artists[0].name);
+            let song = await searchYT(track.name + ' ' + track.artists[0].name, track);
             console.log(song);
             if (!song) {
                 msg.channel.send('Could not find a youtube equivalent of ' + track.name);
@@ -68,11 +80,21 @@ async function get(msg, url) {
     }
 }
 
-async function searchYT(query) {
+async function searchYT(query, track) {
+
     const filters1 = await ytsr.getFilters(query);
     const filter1 = filters1.get('Type').get('Video');
+
     if (filter1.url) {
-        const [result] = (await ytsr(filter1.url, { limit: 1 })).items;
+        //hij pakt 20 songs en kijkt welke tussen de timespan past en pakt dan de relavante
+        const [result] = (await ytsr(filter1.url, {limit: 20})).items.filter(function (song) {
+            //true meenemen false niet meenemen
+            let trackTime = msToSeconds(track.duration_ms);
+            let songToSeconds = timeToSeconds(song.duration);
+            // return of true als het binnen 2 minuten range is anders false en wordt hij niet meegenomen
+            return trackTime < (songToSeconds + 120) && trackTime > (songToSeconds - 120);
+        });
+
         if (result) {
             return {
                 title: result.title,
