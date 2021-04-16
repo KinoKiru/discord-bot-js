@@ -17,13 +17,12 @@
 !play *youtube link* / *youtube playlist* / *zoekterm* : de bot speelt af van wat je hebt meegegeven gaf je een zoekterm kijk hij naar de 1ste video.<br>
 !leave : de bot stopt met spelen en leaved.<br>
 !skip : skipt het nummer die nu aan het spelen is.<br>
-!stop : stop de bot in zijn geheel en de liedjes.<br>
 !queue : laat de queue van liedjes zien.<br>
 !now : laat het current liedje zien.<br>
 !shuffle : Shuffeld de queue behalve het eerste nummer.<br>
+!clear : Cleared alle queue.
 
 <strong>De Owner Commands:</strong><br>
-!restart : de bot restart en hij geeft een shutdown melding en geeft ook een melding als hij weer online staat.<br>
 !shutdown : de bot gaat offline en geeft een response terug waarneer hij offline gaat.<br>
 !delete *Amount* : delete het aangegeven aantal berichten (kunnen niet ouder zijn dan 14 dagen). <br>
 </p>
