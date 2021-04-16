@@ -12,14 +12,12 @@ const JanSmit = require('./Extern_Commands/JanSmit');
 const Pubg = require('./Extern_Commands/pubg');
 const meep = require('./Extern_Commands/meep');
 const messageDelete = require('./Extern_Commands/Owner/Delete');
-const restart = require('./Extern_Commands/Owner/restart');
 const shutdown = require('./Extern_Commands/Owner/shutdown');
 const owo = require('./Extern_Commands/OwO');
 const join = require('./Extern_Commands/SoundCommands/Join');
 const leave = require('./Extern_Commands/SoundCommands/leave');
 const queueDisplay = require('./Extern_Commands/SoundCommands/queue');
 const {execute:playSongs} = require('./Extern_Commands/SoundCommands/play');
-const stop = require('./Extern_Commands/SoundCommands/stop');
 const skip = require('./Extern_Commands/SoundCommands/skip');
 const pingy = require('./Extern_Commands/ping');
 const now = require('./Extern_Commands/SoundCommands/now');
@@ -30,7 +28,7 @@ const shuffle = require('./Extern_Commands/SoundCommands/shuffle');
 //hier maak ik de status van de bot en geeft ik een output dat de bot runt
 client.once('ready', () => {
     console.log('De fabriek staat op volle kracht');
-    client.user.setActivity("Use !commands", {
+    client.user.setActivity("use !commands", {
         type: "PLAYING"
     });
 });
@@ -85,10 +83,6 @@ client.on('message', message => {
     //#region OwnerCommands
     //#region shutdown_command
     switch (command) {
-        case config.prefix + OwnerCMD.restart:
-            if (!isBotOwner) return;
-            restart(message, queue, client)
-            break;
         case config.prefix + OwnerCMD.Shutdown:
             if (!isBotOwner) return;
             shutdown(message, client)
@@ -155,7 +149,7 @@ client.on('message', async message => {
     switch (command) {
         case config.prefix + Commandfile.join:
             const voiceChannel = message.member.voice.channel;
-            join(message, voiceChannel)
+            join(message, voiceChannel, serverQueue); //TODO hier heb ik serverqueue mee gegeven
             break;
         case config.prefix + Commandfile.leave:
             leave(serverQueue, message);
@@ -165,9 +159,6 @@ client.on('message', async message => {
             break;
         case config.prefix + Commandfile.skip:
             skip(message, serverQueue, queue);
-            break;
-        case config.prefix + Commandfile.stop:
-            stop(message, serverQueue);
             break;
         case config.prefix + Commandfile.queue:
             queueDisplay(serverQueue, message);

@@ -7,12 +7,18 @@ function skip(message, serverQueue , queue) {
             "You have to be in a voice channel to stop the music!"
         );
     //zit je wel in de voice channel dan kijkt hij of er wel een queue is zo nee? dan geeft hij aan dat hij het niet kan doen
-    if (!serverQueue)
+    if (serverQueue.songs.length === 0)
+    {
         return message.channel.send("There is no song that I could skip!");
+    }
+
+    if (serverQueue.songs.length >= 1){
+        message.channel.send(`Skipped **${serverQueue.songs[0].title}**`);
+        serverQueue.songs.shift();
+        nextSong(serverQueue);
+    }
     //hij kijkt in de queue ook of je in de voice channel zit, dan pakt hij de 'speler' en beindigt hij de spelend nummer
-    message.channel.send(`Skipped **${serverQueue.songs[0].title}**`);
-    serverQueue.songs.shift();
-    nextSong(serverQueue);
+
 }
 async function nextSong(queue) {
     if (queue.songs.length !== 0) {

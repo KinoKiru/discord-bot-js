@@ -19,5 +19,6 @@ function help (message, isBotOwner)
             .addField('De music Commands', Commandfile.musicCommands)
             .setDescription(Commandfile.helpText));
     }
+    message.channel.send("Look in your DM's for the commands!");
 }
 module.exports = help;
