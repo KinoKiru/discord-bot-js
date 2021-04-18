@@ -1,5 +1,5 @@
-const Commandfile = require('./Assets/commands.json')
-const OwnerCMD = require('./Assets/OwnerCommands.json')
+const Commandfile = require('../Assets/commands.json')
+const OwnerCMD = require('../Assets/OwnerCommands.json')
  const {MessageEmbed} = require('discord.js')
 
 function help (message, isBotOwner)

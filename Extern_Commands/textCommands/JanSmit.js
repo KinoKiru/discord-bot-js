@@ -1,4 +1,4 @@
-const janniesmit = require('./Assets/longText.json')
+const janniesmit = require('../Assets/longText.json')
 
 function jansmit(message)
 {

@@ -39,8 +39,10 @@ async function execute(message, serverQueue, queue) {
             const songs ={
                 title: songInfo.videoDetails.title,
                 url: songInfo.videoDetails.video_url,
-                duration: (songInfo.videoDetails.lengthSeconds)
+                duration: (songInfo.videoDetails.lengthSeconds),
+                thumbnail: songInfo.videoDetails.thumbnails[0].url
             }
+            console.log(songInfo.thumbnail_url)
             serverQueue.songs.push(songs);
             // is de link goed, dan gooi ik die in song, song bestaat uit de title,url en duration van het nummer die haal ik allemaal uit song info
         } else if (args[1].startsWith('https://www.youtube.com/playlist?list=')) {
@@ -56,7 +58,7 @@ async function execute(message, serverQueue, queue) {
                 };
             });
             serverQueue.songs.push(...songs);
-            await message.channel.send(`Added '${songs.length}' songs to the queue!`)
+            await message.channel.send(`Added '${songs.length}' songs to the queue!`);
         }else if(args[1].startsWith('https://open.spotify.com/'))
         {
         try{
@@ -64,11 +66,12 @@ async function execute(message, serverQueue, queue) {
             if (songs){
                 start = serverQueue.songs.length === 0;
                 serverQueue.songs.push(...songs);
-                await message.channel.send(`Added **${songs.length}** items to the queue`);
+                await message.channel.send(`Added '${songs.length}' songs to the queue!`);
             }else if (song)
             {
              serverQueue.songs.push(song);
             }
+
         }catch (error){message.channel.send(error)}
         }
         else {
@@ -84,10 +87,12 @@ async function execute(message, serverQueue, queue) {
             //en hier gooi ik de url erin met de optie dat het er maar 1 mag zijn
             const searchResults = await ytsr(filter1.url, options);
             //en dan gooi ik alles in song
+            console.log(searchResults.items[0])
             const  songs = {
                 title: searchResults.items[0].title,
                 url: searchResults.items[0].url,
-                duration: (searchResults.items[0].duration)
+                duration: (searchResults.items[0].duration),
+                thumbnail: searchResults.items[0].bestThumbnail.url
             };
             serverQueue.songs.push(songs);
         }
@@ -115,14 +120,15 @@ async function play(msg, serverQueue, queue, start=false) {
             .play(ytdl(song.url))
             .on('finish', () => {
                 serverQueue.songs.shift();
-                play(msg, serverQueue, queue);
+                play(msg, serverQueue, queue, true);
             })
             .on('error', console.error);
+
         //als hij t goed doet dan deelt hij de liedjes sound gedeeld door 5? en dan geeft hij een message met de song title
-        dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+        serverQueue.connection.dispatcher.setVolume(serverQueue.volume);
         serverQueue.textChannel.send(`Start playing: **${song.title}**`);
     }else{
-       msg.channel.send('added song to queue');
+         msg.channel.send("Added song to queue");
     }
 }
 
@@ -132,7 +138,6 @@ function secondsToTime(seconds) {
     const seconds2 = (seconds % 60 - 1).toString();
     return (hours === '0' ? '' : hours.padStart(2, '0') + ':') + minutes.padStart(2, '0') + ':' + seconds2.padStart(2, '0');
 }
-
-module.exports = {execute, play}
+module.exports = {execute, play};
 
 

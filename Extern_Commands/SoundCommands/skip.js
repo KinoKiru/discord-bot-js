@@ -9,6 +9,8 @@ function skip(message, serverQueue , queue) {
     //zit je wel in de voice channel dan kijkt hij of er wel een queue is zo nee? dan geeft hij aan dat hij het niet kan doen
     if (serverQueue.songs.length === 0)
     {
+       console.log(serverQueue)
+        message.member.voice.channel.leave();
         return message.channel.send("There is no song that I could skip!");
     }
 
@@ -30,7 +32,7 @@ async function nextSong(queue) {
             queue.songs.shift();
             nextSong(queue);
         });
-
+        queue.connection.dispatcher.setVolume(queue.volume);
         dispatcher.on('error', console.log);
     } else{
         queue.connection.disconnect();

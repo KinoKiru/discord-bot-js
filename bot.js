@@ -4,25 +4,26 @@ const client = new Discord.Client();
 const config = require('./Extern_Commands/Assets/config.json');
 const Commandfile = require('./Extern_Commands/Assets/commands.json');
 const OwnerCMD = require('./Extern_Commands/Assets/OwnerCommands.json');
-const zaad = require('./Extern_Commands/Zaad');
-const makeEmbed = require('./Extern_Commands/MakeEmbed');
-const help = require('./Extern_Commands/help');
-const UserInfo = require('./Extern_Commands/UserInfo');
-const JanSmit = require('./Extern_Commands/JanSmit');
-const Pubg = require('./Extern_Commands/pubg');
-const meep = require('./Extern_Commands/meep');
+const zaad = require('./Extern_Commands/textCommands/Zaad');
+const makeEmbed = require('./Extern_Commands/textCommands/MakeEmbed');
+const help = require('./Extern_Commands/textCommands/help');
+const UserInfo = require('./Extern_Commands/textCommands/UserInfo');
+const JanSmit = require('./Extern_Commands/textCommands/JanSmit');
+const Pubg = require('./Extern_Commands/textCommands/pubg');
+const meep = require('./Extern_Commands/textCommands/meep');
 const messageDelete = require('./Extern_Commands/Owner/Delete');
 const shutdown = require('./Extern_Commands/Owner/shutdown');
-const owo = require('./Extern_Commands/OwO');
+const owo = require('./Extern_Commands/textCommands/OwO');
 const join = require('./Extern_Commands/SoundCommands/Join');
 const leave = require('./Extern_Commands/SoundCommands/leave');
 const queueDisplay = require('./Extern_Commands/SoundCommands/queue');
 const {execute:playSongs} = require('./Extern_Commands/SoundCommands/play');
 const skip = require('./Extern_Commands/SoundCommands/skip');
-const pingy = require('./Extern_Commands/ping');
-const now = require('./Extern_Commands/SoundCommands/now');
+const pingy = require('./Extern_Commands/textCommands/ping');
+const now = require('./Extern_Commands/SoundCommands/np');
 const shuffle = require('./Extern_Commands/SoundCommands/shuffle');
 const clear = require('./Extern_Commands/SoundCommands/clear');
+const volume = require('./Extern_Commands/SoundCommands/volume');
 //#endregion
 
 //#region Startup
@@ -139,7 +140,7 @@ client.on('message', async message => {
             textChannel: message.channel,
             connection: null,
             songs: [],
-            volume: 5,
+            volume: 1,
             playing: true
         };
 
@@ -172,6 +173,9 @@ client.on('message', async message => {
             break;
         case config.prefix + Commandfile.clear:
             clear(serverQueue, message);
+            break;
+        case config.prefix + Commandfile.volume:
+            volume(serverQueue, param, message, queue);
             break;
     }
     //#endregion

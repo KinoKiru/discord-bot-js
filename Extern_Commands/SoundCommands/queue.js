@@ -3,7 +3,7 @@ async function queue(serverQueue, message) {
         // in all songs gaan de eerste 20
         const allSongs = serverQueue.songs.slice(0, 20).map((song, index) => {
             //hier return ik de list
-            return (index + 1) + ") " + song.title + " " + song.duration;
+            return (index + 1) + ") " + song.duration  + " " + song.title;
         }).join('\n');
 
         message.channel.send('```apache\n' +
