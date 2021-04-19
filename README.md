@@ -20,7 +20,8 @@
 !queue : laat de queue van liedjes zien.<br>
 !now : laat het current liedje zien.<br>
 !shuffle : Shuffeld de queue behalve het eerste nummer.<br>
-!clear : Cleared alle queue.
+!clear : cleared alle queue. <br>
+!volume : verandert de volume voor de queue. <br>
 
 <strong>De Owner Commands:</strong><br>
 !shutdown : de bot gaat offline en geeft een response terug waarneer hij offline gaat.<br>
