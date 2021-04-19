@@ -1,8 +1,8 @@
 const Commandfile = require('../Assets/commands.json')
 const OwnerCMD = require('../Assets/OwnerCommands.json')
- const {MessageEmbed} = require('discord.js')
+const {MessageEmbed} = require('discord.js')
 
-function help (message, isBotOwner)
+function commands (message, isBotOwner)
 {
     if (isBotOwner) {
         message.author.send(new MessageEmbed()
@@ -21,4 +21,4 @@ function help (message, isBotOwner)
     }
     message.channel.send("Look in your DM's for the commands!");
 }
-module.exports = help;
+module.exports = commands;

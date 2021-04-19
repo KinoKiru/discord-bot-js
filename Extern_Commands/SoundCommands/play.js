@@ -72,7 +72,7 @@ async function execute(message, serverQueue, queue) {
              serverQueue.songs.push(song);
             }
 
-        }catch (error){message.channel.send(error)}
+        }catch (error){console.log(error)}
         }
         else {
             //hier pak ik de search words en doe ik die blij elkaar
@@ -139,5 +139,3 @@ function secondsToTime(seconds) {
     return (hours === '0' ? '' : hours.padStart(2, '0') + ':') + minutes.padStart(2, '0') + ':' + seconds2.padStart(2, '0');
 }
 module.exports = {execute, play};
-
-

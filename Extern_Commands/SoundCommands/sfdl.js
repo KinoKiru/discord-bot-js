@@ -13,7 +13,6 @@ async function refreshToken() {
         console.log(error)
     }
 }
-
 refreshToken().then();
 
 /**
@@ -40,29 +39,34 @@ async function get(msg, url) {
         //https://open.spotify.com/playlist/11o2tmMwFcfQ54ZFmgw9wY
         const playlist_id = url.split('/playlist/')[1];
         const song_id = url.split('/track/')[1];
+
         if (playlist_id) {
-            const offset = 0;
-            const limit = 100;
+            const songs = [];
+            let  next = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=0&limit=100`;
+
+            while (next){
+                const result = (await(await fetch(next,  { headers },
+                )).json());
+
+                const tracks = (result.tracks || result);
+                next = tracks.next;
+
+                songs.push(...(await Promise.all(tracks.items.map(async ({track}) => {
+                    const song = await searchYT(track.artists[0].name + ' ' + track.name, track);
+
+                    if (!song) {
+                        await msg.channel.send('Could not find a youtube equivalent of ' + track.name);
+                        return undefined;
+                    }
+
+                    return song;
+                }))).filter(m => m !== undefined));
+            }
 
             // get 'limit' tracks and parse it
-            result = await (await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=${offset}&limit=${limit}`,
-                { headers },
-            )).json();
-
-
-            const songs = (await Promise.all(result.tracks.items.map(async ({track}) => {
-                const song = await searchYT(track.artists[0].name + ' ' + track.name, track);
-                if (!song) {
-                    await msg.channel.send('Could not find a youtube equivalent of ' + track.name);
-                    return undefined;
-                }
-                return song;
-            }))).filter(m => m !== undefined);
-
             return {songs};
-
         } else if (song_id) { //dit is voor 1 nummer
-            track = await (await fetch(`https://api.spotify.com/v1/tracks/${song_id}/`,
+           const track = await (await fetch(`https://api.spotify.com/v1/tracks/${song_id}/`,
                 {headers},
             )).json();
 
@@ -78,6 +82,7 @@ async function get(msg, url) {
     } else {
         throw Error('Url should not be empty');
     }
+
 }
 
 async function searchYT(query, track) {
