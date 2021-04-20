@@ -1,5 +1,0 @@
-{
-  "Shutdown" : "shutdown",
-  "Delete" : "delete",
-  "Info" :  "!shutdown : de bot gaat offline en geeft een response als dit gelukt is. \n !delete *Amount* : dit delete messages."
-}
