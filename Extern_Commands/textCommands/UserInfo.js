@@ -1,17 +1,23 @@
 const {MessageEmbed} = require('discord.js')
-const luuk = '112125196059574272'
 
-function User_info (message) {
+const group = require('../Assets/Groups');
+const name = "userinfo";
+group.get("Misc").push(name);
+
+module.exports = {
+    execute(message) {
+        message.channel.send(new MessageEmbed()
+            .setTitle("User Information")
+            .addField('Username', message.author.username) //als je een derde parameter mee geeft de true gaat hij op dezelfde line
+            .addField('Creation date', message.author.createdAt.getDate() + "-" + (message.author.createdAt.getMonth() + 1) + '-' + message.author.createdAt.getFullYear())
+            .addField("User ID", message.author.id)
+            .addField('Current server', message.guild.name)
+            .setColor("0xF1C40F")
+            .setThumbnail(message.author.avatarURL())
+        )
+    },
+    name: name,
+    description: "geeft je discord naam + je User ID en nog wat andere info."
 
 
-    message.channel.send(new MessageEmbed()
-        .setTitle("User Information")
-        .addField('Username', message.author.username) //als je een derde parameter mee geeft de true gaat hij op dezelfde line
-        .addField('Creation date', message.author.createdAt.getDate() + "-" + (message.author.createdAt.getMonth() + 1) + '-' + message.author.createdAt.getFullYear())
-        .addField("User ID", message.author.id)
-        .addField('Current server', message.guild.name)
-        .setColor("0xF1C40F")
-        .setThumbnail(message.author.avatarURL())
-    )
 }
-module.exports = User_info

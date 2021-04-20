@@ -1,5 +1,12 @@
-function zaad(message)
-{
-    message.channel.send("Cool maar je moeder is dik");
+const group = require('../Assets/Groups');
+const name = "zaad";
+group.get("Misc").push(name);
+
+module.exports = {
+    execute(message) {
+        message.channel.send("Cool maar je moeder is dik");
+    },
+    name: name,
+    description: 'geeft een text terug.'
+
 }
-module.exports = zaad;
