@@ -18,7 +18,7 @@
 !leave : de bot stopt met spelen en leaved.<br>
 !skip : skipt het nummer die nu aan het spelen is.<br>
 !queue : laat de queue van liedjes zien.<br>
-!now : laat het current liedje zien.<br>
+!np : laat het current liedje zien.<br>
 !shuffle : Shuffeld de queue behalve het eerste nummer.<br>
 !clear : cleared alle queue. <br>
 !volume : verandert de volume voor de queue. <br>
