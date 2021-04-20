@@ -38,6 +38,9 @@ client.on('message', async message => {
     //hier pak ik de commandname en dan de functie die ik overal bij gebruik
     // dus bv: help.execute , play.execute. meep.execute
     try {
+        if (message.channel.type === "dm" && command.name !== "help" && command.name !== "shutdown") {
+            return message.author.send("This command can only be used in a server");
+        }
         command.execute(message, args);
     } catch (error) {
         //als er een fout onstaat bij de command krijg je een message terug

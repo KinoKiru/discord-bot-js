@@ -7,6 +7,7 @@ group.get("Music Commands").push(name);
 module.exports = {
 
     execute(message) {
+
         const queue = require('../Assets/Queue');
         let serverQueue = queue.get(message.guild.id);
         //hij kijkt of je wel in de voice channel zit zo nee dan wordt dat vermeld

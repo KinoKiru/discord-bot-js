@@ -14,6 +14,7 @@ module.exports = {
             console.error('One of the emojis failed to react.');
             message.channel.send('One of the emojis failed to react.');
         }
+
     },
     name: name,
     description: "Gives a response to your message.",

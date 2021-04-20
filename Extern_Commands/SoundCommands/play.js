@@ -46,9 +46,8 @@ function secondsToTime(seconds) {
 }
 
 module.exports = {
-
-
     async execute(message, args) {
+
         const queue = require('../Assets/Queue');
         let serverQueue = queue.get(message.guild.id);
 

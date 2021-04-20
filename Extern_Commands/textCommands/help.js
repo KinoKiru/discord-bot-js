@@ -11,7 +11,6 @@ module.exports = {
     description: 'List all of my commands or info about a specific command.',
     aliases: ['commands'],
     usage: '[command name]',
-
     //dit is de execute die ook gelinkt staat aan bot.js
     execute(message, args) {
         const data = [];

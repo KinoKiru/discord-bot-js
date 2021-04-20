@@ -4,6 +4,7 @@ group.get("Music Commands").push(name);
 module.exports = {
 // hier kijk sla ik de queue(met de key van de server.id) op in de serverqueue
     execute(message) {
+
         const queue = require('../Assets/Queue');
         let serverQueue = queue.get(message.guild.id);
 

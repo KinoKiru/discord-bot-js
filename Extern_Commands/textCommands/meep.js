@@ -8,6 +8,7 @@ group.get("Misc").push(name);
 module.exports = {
     async execute(message, args) {
         message.channel.send(await getRandomHentai(args[0] === 'engels'))
+
     },
     name: name,
     description: "parameter : (*engels*) Gives a random hentai \uD83D\uDE33."

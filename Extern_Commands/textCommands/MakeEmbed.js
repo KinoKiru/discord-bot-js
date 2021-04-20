@@ -7,6 +7,7 @@ group.get("Misc").push(name);
 
 module.exports = {
     execute(message, args) {
+
 //hier stuur ik een embed met de title(1 woord),Maker van de embed(1 woord),De description(de rest van alle argumenten)
         message.channel.send(new MessageEmbed().setTitle(args.shift()).setAuthor(args.shift()).setDescription(args.join(' ')))
 
@@ -19,8 +20,8 @@ module.exports = {
          .setImage('https://i.imgur.com/wSTFkRM.png')
          .setTimestamp()
          .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');*/
+
     },
     name: name,
     description: "parameters (*titel* *Author* *desc*) : You can make an embed with the given parameters"
-
 }
