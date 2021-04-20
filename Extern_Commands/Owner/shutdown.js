@@ -4,6 +4,7 @@ const group = require('../Assets/Groups');
 const name = "shutdown"
 group.get("Owner Commands").push(name);
 module.exports = {
+    //ik kijk wie de message stuurt en of die overeenkomt met mijn id, zo ja destoy ik de client
     execute(message) {
         if (message.author.id === config.UserId) {
             message.channel.send('Shutting down...').then(m => {

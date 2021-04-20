@@ -4,6 +4,7 @@ const group = require('../Assets/Groups');
 const name = "userinfo";
 group.get("Misc").push(name);
 
+//hier maak ik een embed aan met wat info over de user
 module.exports = {
     execute(message) {
         message.channel.send(new MessageEmbed()

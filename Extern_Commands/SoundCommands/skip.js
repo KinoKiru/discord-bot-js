@@ -14,27 +14,29 @@ module.exports = {
             return message.channel.send(
                 "You have to be in a voice channel to stop the music!"
             );
-        //zit je wel in de voice channel dan kijkt hij of er wel een queue is zo nee? dan geeft hij aan dat hij het niet kan doen
+        //als er nog geen serverqueue bestaat of dat er geen liedjes zijn dan leaved ie en geeft hij een message aan de user
         if (!serverQueue || serverQueue.songs.length === 0) {
             console.log(serverQueue)
             message.member.voice.channel.leave();
             return message.channel.send("There is no song that I could skip!");
         }
 
+        //als er 1 of meer liedjes in de queue zitten dan geeft hij aan welk nummer hij skipt en dan gaat hij naar het volgend nummer
         if (serverQueue.songs.length >= 1) {
             message.channel.send(`Skipped **${serverQueue.songs[0].title}**`);
             serverQueue.songs.shift();
             nextSong(serverQueue);
         }
-        //hij kijkt in de queue ook of je in de voice channel zit, dan pakt hij de 'speler' en beindigt hij de spelend nummer
-
     },
     name: name,
     description: "!skip : skipt het nummer die nu aan het spelen is."
 
 }
 async function nextSong(queue) {
+
+    //als er meer dan 0 nummers in zitten dan
     if (queue.songs.length !== 0) {
+        //hij played de nummer die erna kwam
         let dispatcher = queue.connection.play(ytdl(queue.songs[0].url));
 
         queue.songs[0].dispatcher = dispatcher;
