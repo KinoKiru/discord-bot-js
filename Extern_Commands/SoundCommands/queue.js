@@ -22,5 +22,5 @@ module.exports = {
 
     },
     name: "queue",
-    description: "!queue : laat de queue van liedjes zien"
+    description: "!queue : Shows the queue"
 }

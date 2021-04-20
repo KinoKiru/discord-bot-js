@@ -18,7 +18,7 @@ module.exports = {
         )
     },
     name: name,
-    description: "geeft je discord naam + je User ID en nog wat andere info."
+    description: "Gives you your discord data."
 
 
 }

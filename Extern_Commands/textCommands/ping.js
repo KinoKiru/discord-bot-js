@@ -11,6 +11,6 @@ module.exports = {
         await message.edit('Pong ' + diff + ' ms')
     },
     name: name,
-    description: "ik geef je ping terug."
+    description: "Gives you the ms of response time of the bot."
 
 }

@@ -188,6 +188,6 @@ module.exports = {
         await play(message, serverQueue, queue, start);
     },
     name: name,
-    description: "!play *youtube link* / *youtube playlist* / *zoekterm* : speelt de youtube link af in de voice channel."
+    description: "!play *youtube link* / *youtube playlist* / *Tags* : Plays the given item"
 
 };

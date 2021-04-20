@@ -25,5 +25,5 @@ module.exports = {
         message.channel.send(new MessageEmbed().setTitle(serverQueue.songs[0].title).setThumbnail(serverQueue.songs[0].thumbnail));
     },
     name: name,
-    description: "!np : speelt het current liedje af."
+    description: "!np : Returns the current playing song"
 }

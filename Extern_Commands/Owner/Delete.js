@@ -23,7 +23,7 @@ module.exports = {
                 });
             }
         } else {
-            message.channel.send("U heeft niet de rechten")
+            message.channel.send("You dont have the rights to preform this action.")
         }
     }
 }

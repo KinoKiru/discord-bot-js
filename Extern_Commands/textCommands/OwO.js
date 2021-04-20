@@ -16,5 +16,5 @@ module.exports = {
         }
     },
     name: name,
-    description: "geeft je een mooie response.",
+    description: "Gives a response to your message.",
 }

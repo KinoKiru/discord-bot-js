@@ -10,7 +10,7 @@ module.exports = {
         message.channel.send(await getRandomHentai(args[0] === 'engels'))
     },
     name: name,
-    description: "parameter : (*engels*) wat 18+ content \uD83D\uDE33."
+    description: "parameter : (*engels*) Gives a random hentai \uD83D\uDE33."
 }
 // bij start staat de optie voor engels op false, en pakt hij maar 1 hentai
 async function getRandomHentai(english = false, count = 1) {

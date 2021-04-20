@@ -29,7 +29,7 @@ module.exports = {
         }
     },
     name: name,
-    description: "!skip : skipt het nummer die nu aan het spelen is."
+    description: "!skip : skips the current playing song"
 
 }
 async function nextSong(queue) {

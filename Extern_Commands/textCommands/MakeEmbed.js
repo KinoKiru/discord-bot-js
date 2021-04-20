@@ -21,6 +21,6 @@ module.exports = {
          .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');*/
     },
     name: name,
-    description: "parameters (*titel* *Author* *desc*) hier mee kan je een Embed maken."
+    description: "parameters (*titel* *Author* *desc*) : You can make an embed with the given parameters"
 
 }

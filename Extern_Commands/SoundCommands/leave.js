@@ -18,6 +18,6 @@ module.exports = {
         }
     },
     name: name,
-    description: "!leave : de bot stopt met spelen en leaved."
+    description: "!leave : The bot leaves the current voice channel."
 
 }

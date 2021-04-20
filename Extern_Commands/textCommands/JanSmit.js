@@ -10,5 +10,5 @@ module.exports = {
 
     },
     name: name,
-    description: "Geeft je de text van Boom Boom Bailando."
+    description: "Gives the song text of Boom Boom Bailando"
 }

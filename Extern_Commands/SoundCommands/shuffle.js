@@ -30,5 +30,5 @@ module.exports = {
         message.channel.send("Queue shuffeld!");
     },
     name: name,
-    description: "!shuffle : shuffeld de queue."
+    description: "!shuffle : shuffels the queue."
 }

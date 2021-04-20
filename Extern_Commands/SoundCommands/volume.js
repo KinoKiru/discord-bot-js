@@ -33,5 +33,5 @@ module.exports = {
         }
     },
     name: name,
-    description: "!volume *amount* : past het volume aan"
+    description: "!volume *amount* : Changes the volume to the given ammount."
 }
