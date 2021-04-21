@@ -19,6 +19,7 @@ module.exports = {
         }
     },
     name: name,
-    description: "!leave : The bot leaves the current voice channel."
+    description: "The bot leaves the current voice channel.",
+    usage: '!leave'
 
 }

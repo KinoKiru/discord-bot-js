@@ -28,13 +28,14 @@ client.on('message', async message => {
     const commandName = args.shift().toLowerCase();
     //als het bericht niet begint met de prefix doet de bot niks
     if (!message.content.startsWith(config.prefix) || message.author.bot) return;
-    //als de client niet de command name heeft dan returnt hij
-    if (!client.commands.has(commandName)) return;
     //als de author een bot is dan doe ik niks
     if (message.author.bot) return;
     //hier pak ik de command name uit client.commands
-    const command = client.commands.get(commandName);
+    const command = client.commands.get(commandName) || client.commands.find(command => (command.aliases || []).includes(commandName));
+    //als de client niet de command name heeft dan returnt hij
+    if (!command) return;
 
+    console.log(command);
     //hier pak ik de commandname en dan de functie die ik overal bij gebruik
     // dus bv: help.execute , play.execute. meep.execute
     try {

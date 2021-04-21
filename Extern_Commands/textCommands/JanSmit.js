@@ -11,4 +11,6 @@ module.exports = {
     },
     name: name,
     description: "Gives the song text of Boom Boom Bailando",
+    aliases: ['jan'],
+    usage: "!jan / !jansmit"
 }

@@ -187,6 +187,8 @@ module.exports = {
         await play(message, serverQueue, queue, start);
     },
     name: name,
-    description: "!play *youtube link* / *youtube playlist* / *Tags* : Plays the given item"
+    aliases: ['p'],
+    description: "Plays the given item",
+    usage: "!play / !p  (*youtube link* / *youtube playlist* / *Tags*)",
 
 };

@@ -35,6 +35,7 @@ module.exports = {
 
     },
     name: name,
-    description: "!join : The bot joines your current voice channel."
+    description: "The bot joines your current voice channel.",
+    usage: '!join'
 }
 

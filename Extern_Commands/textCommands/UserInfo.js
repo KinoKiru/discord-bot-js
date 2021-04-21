@@ -18,7 +18,9 @@ module.exports = {
         )
     },
     name: name,
-    description: "Gives you your discord data."
+    description: "Gives you your discord data.",
+    aliases: ['ui'],
+    usage: '!ui / !userinfo'
 
 
 }

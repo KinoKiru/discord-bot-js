@@ -18,4 +18,5 @@ module.exports = {
     },
     name: name,
     description: "Gives a response to your message.",
+    usage: '!owo'
 }

@@ -8,5 +8,6 @@ module.exports = {
         message.channel.send("https://www.youtube.com/watch?v=zLsf8UNmlJc")
     },
     name: name,
-    description: "Gives you a video."
+    description: "Gives you a video.",
+    usage: '!pubg'
 }

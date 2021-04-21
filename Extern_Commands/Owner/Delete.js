@@ -4,7 +4,8 @@ const name = 'delete';
 group.get("Owner Commands").push(name);
 module.exports = {
     name: name,
-    description: '!delete *Amount*: deletes the amount of messages',
+    description: 'deletes the given amount of messages',
+    usage: '!delete *Amount*',
     async execute(message, args) {
         //als de message komt van de owner kan hij verder
         if (message.author.id === config.UserId) {

@@ -22,6 +22,7 @@ module.exports = {
         message.channel.send("Cleared queue");
     },
     name: name,
-    description: "!clear : cleart de queue"
+    description: "clears the queue",
+    usage: '!clear'
 
 }

@@ -95,7 +95,8 @@ module.exports = {
         //als ik een description heb dan push ik die naar de array
         if (command.description) data.push(`**Description:** ${command.description}`);
         //als ik een usage heb meegegeven dan push ik die naar de array
-        if (command.usage) data.push(`**Usage:** ${config.prefix}${command.name} ${command.usage}`);
+        if (command.usage) data.push(`**Usage:** ${command.usage}`);
+        console.log(command)
 
         //hier send ik de aparte !help Command
         message.channel.send(data, {split: true});

@@ -8,6 +8,7 @@ module.exports = {
         message.channel.send("Cool maar je moeder is dik");
     },
     name: name,
-    description: 'Returns a sentence.'
+    description: 'Returns a sentence.',
+    usage: '!zaad'
 
 }

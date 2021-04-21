@@ -1,7 +1,7 @@
 const {MessageEmbed} = require('discord.js')
 
 const group = require('../Assets/Groups');
-const name = "np";
+const name = "now";
 group.get("Music Commands").push(name);
 
 module.exports = {
@@ -25,5 +25,7 @@ module.exports = {
         message.channel.send(new MessageEmbed().setTitle(serverQueue.songs[0].title).setThumbnail(serverQueue.songs[0].thumbnail));
     },
     name: name,
-    description: "!np : Returns the current playing song"
+    aliases: ['np'],
+    description: "Returns the current playing song",
+    usage: '!np / !now'
 }

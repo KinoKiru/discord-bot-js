@@ -30,7 +30,9 @@ module.exports = {
         }
     },
     name: name,
-    description: "!skip : skips the current playing song"
+    description: "skips the current playing song",
+    aliases: ['s'],
+    usage: '!s / !skip'
 
 }
 async function nextSong(queue) {

@@ -23,5 +23,7 @@ module.exports = {
 
     },
     name: name,
-    description: "parameters (*titel* *Author* *desc*) : You can make an embed with the given parameters"
+    description: "parameters (*titel* *Author* *desc*) : You can make an embed with the given parameters",
+    aliases: ['md'],
+    usage: "!md / !makeembed Title hans ill be crying"
 }

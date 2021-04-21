@@ -16,4 +16,5 @@ module.exports = {
     },
     name: name,
     description: "Shutdowns the bot",
+    usage: '!shutdown'
 }

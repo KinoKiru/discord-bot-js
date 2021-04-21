@@ -22,5 +22,7 @@ module.exports = {
 
     },
     name: "queue",
-    description: "!queue : Shows the queue"
+    description: "Shows the queue",
+    aliases: ['q'],
+    usage: '!q / !queue'
 }
