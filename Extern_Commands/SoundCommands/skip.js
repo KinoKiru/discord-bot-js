@@ -40,7 +40,10 @@ async function nextSong(queue) {
     //als er meer dan 0 nummers in zitten dan
     if (queue.songs.length !== 0) {
         //hij played de nummer die erna kwam
-        let dispatcher = queue.connection.play(ytdl(queue.songs[0].url));
+        let dispatcher = queue.connection.play(ytdl(queue.songs[0].url, {
+            filter: "audioonly",
+            quality: "highestaudio"
+        }));
 
         queue.songs[0].dispatcher = dispatcher;
         queue.songs[0].pauseTime = 0;

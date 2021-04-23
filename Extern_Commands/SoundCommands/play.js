@@ -10,6 +10,7 @@ group.get("Music Commands").push(name);
 
 async function play(msg, serverQueue, queue, start = false) {
     const song = serverQueue.songs[0];
+    console.log(song)
 
     //als het eerste liedje in de serverqueue undifined is dan cleart hij de queue en dan leaved ie
     if (song === undefined) {
@@ -21,7 +22,7 @@ async function play(msg, serverQueue, queue, start = false) {
     if (serverQueue.songs.length <= 1 || start) {
         //als de server.songs.length <= 1 dan speelt hij het liedje af ipv de plaatsen in de queue
         const dispatcher = serverQueue.connection
-            .play(ytdl(song.url))
+            .play(ytdl(song.url, {filter: "audioonly", quality: "highestaudio"}))
             .on('finish', () => {
                 serverQueue.songs.shift();
                 play(msg, serverQueue, queue, true);
@@ -35,14 +36,6 @@ async function play(msg, serverQueue, queue, start = false) {
         //als het meer zijn dan plaatst hij ze in de queue
         msg.channel.send("Added song to queue");
     }
-}
-
-//hier gooi ik de seconden naar time (no use AsOffNow)
-function secondsToTime(seconds) {
-    const hours = Math.floor(seconds / 3600).toString();
-    const minutes = Math.floor(seconds / 60 % 60).toString();
-    const seconds2 = (seconds % 60 - 1).toString();
-    return (hours === '0' ? '' : hours.padStart(2, '0') + ':') + minutes.padStart(2, '0') + ':' + seconds2.padStart(2, '0');
 }
 
 module.exports = {

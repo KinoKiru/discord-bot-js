@@ -51,12 +51,10 @@ client.on('message', async message => {
 
 })
 
-
-
 //#region functions
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     if (oldMember.channel && !newMember.channel) {
-        queue.delete(oldMember.guild.id)
+        queue.delete(oldMember.guild.id);
         console.log('old: leaved');
     } else if (newMember.channel && !oldMember.channel) {
         console.log('new: joined');

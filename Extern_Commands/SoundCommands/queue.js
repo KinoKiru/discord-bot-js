@@ -1,8 +1,10 @@
-module.exports = {
-    async execute(message) {
+const queue = require('../Assets/Queue');
 
-        const queue = require('../Assets/Queue');
+module.exports = {
+    execute(message) {
         let serverQueue = queue.get(message.guild.id);
+        console.log(serverQueue);
+        console.log(serverQueue.songs.length);
 
         if (serverQueue !== undefined && serverQueue.songs.length !== 0) {
             //in allSongs gaan de eerste 20 nummers van de serverQueue en hier pak ik de induvuele song van
@@ -11,10 +13,14 @@ module.exports = {
                 return (index + 1) + ") " + song.duration + " " + song.title;
             }).join('\n');
 
-            //dan stuur ik 1 message met de 20 nummers en replace ik de blokhaken met niks
-            message.channel.send('```apache\n' +
-                allSongs.replace(/\[/g, "").replace(/\]/g, "") + '```');
+            let totaltime = 0;
+            for (let song of serverQueue.songs) {
+                totaltime += song.durationSeconds;
+            }
 
+            //dan stuur ik 1 message met de 20 nummers en replace ik de blokhaken met niks
+            message.channel.send('```apache\n' + `total: ${serverQueue.songs.length}\nduration: ${secondsToTime(totaltime)}\n\n` +
+                allSongs.replace(/\[/g, "").replace(/\]/g, "") + '```');
 
         } else {
             message.channel.send("Queue is empty");
@@ -25,4 +31,12 @@ module.exports = {
     description: "Shows the queue",
     aliases: ['q'],
     usage: '!q / !queue'
+}
+
+//hier gooi ik de seconden naar time (no use AsOffNow)
+function secondsToTime(seconds) {
+    const hours = Math.floor(seconds / 3600).toString();
+    const minutes = Math.floor(seconds / 60 % 60).toString();
+    const seconds2 = (seconds % 60 - 1).toString();
+    return (hours === '0' ? '' : hours.padStart(2, '0') + ':') + minutes.padStart(2, '0') + ':' + seconds2.padStart(2, '0');
 }
