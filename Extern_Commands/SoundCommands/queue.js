@@ -3,14 +3,12 @@ const queue = require('../Assets/Queue');
 module.exports = {
     execute(message) {
         let serverQueue = queue.get(message.guild.id);
-        console.log(serverQueue);
-        console.log(serverQueue.songs.length);
 
         if (serverQueue !== undefined && serverQueue.songs.length !== 0) {
             //in allSongs gaan de eerste 20 nummers van de serverQueue en hier pak ik de induvuele song van
             const allSongs = serverQueue.songs.slice(0, 20).map((song, index) => {
                 //returnt de nummer van het liede in de queue, de duration van het liedje en dan de title van het liedje
-                return (index + 1) + ") " + song.duration + " " + song.title;
+                return (index + 1) + ") " + secondsToTime(song.durationSeconds) + " " + song.title;
             }).join('\n');
 
             let totaltime = 0;
@@ -33,7 +31,7 @@ module.exports = {
     usage: '!q / !queue'
 }
 
-//hier gooi ik de seconden naar time (no use AsOffNow)
+//hier gooi ik de seconden naar time
 function secondsToTime(seconds) {
     const hours = Math.floor(seconds / 3600).toString();
     const minutes = Math.floor(seconds / 60 % 60).toString();

@@ -97,10 +97,10 @@ module.exports = {
                 const songs = {
                     title: songInfo.videoDetails.title,
                     url: songInfo.videoDetails.video_url,
-                    duration: (songInfo.videoDetails.lengthSeconds),
+                    durationSeconds: (songInfo.videoDetails.lengthSeconds),
                     thumbnail: songInfo.videoDetails.thumbnails[0].url
                 }
-                console.log(songInfo.thumbnail_url)
+                console.log('liedje', songs)
                 //hier push ik songs naar de songs array van serverQueue, dus als serverQueue.songs leeg is speelt hij deze als eerste af
                 serverQueue.songs.push(songs);
 
@@ -118,11 +118,13 @@ module.exports = {
                     return {
                         title,
                         url,
-                        duration,
+                        durationSeconds: timeToSeconds(duration),
                         thumbnail: bestThumbnail.url
                     };
                 });
                 //hier push ik naar serverQueue.songs alles in songs
+
+                console.log(songs)
                 serverQueue.songs.push(...songs);
 
                 //pas als de message is gestuurd gaat hij pas door naar de volgende stap
@@ -166,11 +168,12 @@ module.exports = {
                 const songs = {
                     title: searchResults.items[0].title,
                     url: searchResults.items[0].url,
-                    duration: (searchResults.items[0].duration),
+                    durationSeconds: timeToSeconds(searchResults.items[0].duration),
                     thumbnail: searchResults.items[0].bestThumbnail.url
                 };
                 //hier push ik de song naar de songs array
                 serverQueue.songs.push(songs);
+                console.log("woord", songs);
             }
         } else {
             // dit is de eerste foutcode die hij gaat terug geven aan de user dit betekent dat er niks is meegegven
@@ -185,3 +188,22 @@ module.exports = {
     usage: "!play / !p  (*youtube link* / *youtube playlist* / *Tags*)",
 
 };
+
+function timeToSeconds(time) {
+    if (!time || time === '') return 0;
+    const split = time.split(':');
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+    if (split.length === 3) {
+        const [h, m, s] = split;
+        hours = +h;
+        minutes = +m;
+        seconds = +s;
+    } else {
+        const [m, s] = split;
+        minutes = +m;
+        seconds = +s;
+    }
+    return (hours * 3600) + (minutes * 60) + seconds;
+}

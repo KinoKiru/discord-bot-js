@@ -33,6 +33,7 @@ module.exports = {
         }
     },
     name: name,
+    aliases: ['v'],
     description: "Changes the volume to the given amount.",
     usage: '!volume <1 - 500>'
 }
