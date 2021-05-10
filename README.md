@@ -1,5 +1,5 @@
 <h1>Welcome</h1>
-<p>Dit is mijn mooie discord bot<br>
+<p>Dit is 'mijn' mooie discord bot<br>
 
   
 <strong>De Commands:</strong><br>
