@@ -11,6 +11,8 @@
 !owo : geeft je een mooie response op je bericht.<br>
 !meep *engels* : wat 18+ content :flushed:.<br>
 !ping : geeft je ping terug.<br>
+!deals : geeft de beste deals.<br>
+!kanye : Kanye tweet.<br>
 
 <strong>De music Commands:</strong><br>
 !join : de bot joined je voice channel.<br>
@@ -22,6 +24,7 @@
 !shuffle : Shuffeld de queue behalve het eerste nummer.<br>
 !clear : cleared alle queue. <br>
 !volume : verandert de volume voor de queue. <br>
+!remove *getal* : haal een liedje uit de queue.<br>
 
 <strong>De Owner Commands:</strong><br>
 !shutdown : de bot gaat offline en geeft een response terug waarneer hij offline gaat.<br>
