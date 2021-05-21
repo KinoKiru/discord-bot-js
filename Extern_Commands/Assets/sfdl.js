@@ -1,5 +1,6 @@
 const ytsr = require('ytsr');
 const fetch = require('node-fetch');
+const AppendError = require('../Assets/AppendError');
 let headers;
 let expires;
 
@@ -52,14 +53,22 @@ async function get(msg, url) {
                 next = tracks.next;
 
                 songs.push(...(await Promise.all(tracks.items.map(async ({track}) => {
-                    const song = await searchYT(track.artists[0].name + ' ' + track.name, track);
+                    try {
+                        if (track === null) {
+                            AppendError("Track not found on line: 57, in file: sfdl.js");
+                            return;
+                        }
+                        const song = await searchYT(track.artists[0].name + ' ' + track.name, track);
+                        if (!song) {
+                            await msg.channel.send('Could not find a youtube equivalent of ' + track.name);
+                            return undefined;
+                        }
 
-                    if (!song) {
-                        await msg.channel.send('Could not find a youtube equivalent of ' + track.name);
-                        return undefined;
+                        return song;
+                    } catch (error) {
+
                     }
 
-                    return song;
                 }))).filter(m => m !== undefined));
             }
 
@@ -69,9 +78,9 @@ async function get(msg, url) {
            const track = await (await fetch(`https://api.spotify.com/v1/tracks/${song_id}/`,
                 {headers},
             )).json();
-
             let song = await searchYT(track.name + ' ' + track.artists[0].name, track);
             console.log(song);
+
             if (!song) {
                 msg.channel.send('Could not find a youtube equivalent of ' + track.name);
             }
@@ -82,6 +91,7 @@ async function get(msg, url) {
     } else {
         throw Error('Url should not be empty');
     }
+
 
 }
 

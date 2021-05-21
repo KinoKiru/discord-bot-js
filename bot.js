@@ -35,7 +35,7 @@ client.on('message', async message => {
     //als de client niet de command name heeft dan returnt hij
     if (!command) return;
 
-    console.log(command);
+
     //hier pak ik de commandname en dan de functie die ik overal bij gebruik
     // dus bv: help.execute , play.execute. meep.execute
     try {
@@ -68,5 +68,4 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     }
 });
 //#endregion
-
 

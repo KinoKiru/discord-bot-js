@@ -2,8 +2,8 @@ const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
 const ytsr = require('ytsr');
 const sfdl = require('../Assets/sfdl');
-
 const group = require('../Assets/Groups');
+const AppendError = require('../Assets/AppendError');
 const name = "play";
 group.get("Music Commands").push(name);
 
@@ -14,9 +14,12 @@ async function play(msg, serverQueue, queue, start = false) {
 
     //als het eerste liedje in de serverqueue undifined is dan cleart hij de queue en dan leaved ie
     if (song === undefined) {
+    }
+    if (serverQueue.songs.length === 0) {
         queue.delete(msg.guild.id);
         serverQueue.connection.disconnect();
         return msg.channel.send('No more songs!');
+
     }
 
     if (serverQueue.songs.length <= 1 || start) {
@@ -27,7 +30,7 @@ async function play(msg, serverQueue, queue, start = false) {
                 serverQueue.songs.shift();
                 play(msg, serverQueue, queue, true);
             })
-            .on('error', console.error);
+            .on('error', (err => AppendError(err.message + " On line: 30, in file: play.js" + "\n")));
 
         //als hij t goed doet dan deelt hij de liedjes sound gedeeld door 5? en dan geeft hij een message met de song title
         serverQueue.connection.dispatcher.setVolume(serverQueue.volume);
@@ -148,7 +151,7 @@ module.exports = {
                         serverQueue.songs.push(song);
                     }
                 } catch (error) {
-                    console.log(error)
+                    AppendError(error + " on line: 151, in file: play.js" + "\n");
                 }
             } else {
                 //hier pak ik de argumenten en plaats ik die bij elkaar en gooi ik er een spatie tussen

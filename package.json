@@ -10,13 +10,13 @@
     "discord.js-pagination": "^1.0.3",
     "exchange-rates-api": "^1.1.0",
     "ffmpeg-static": "^4.3.0",
-    "jsdom": "^16.5.2",
+    "jsdom": "^16.5.3",
     "node-fetch": "^2.6.1",
     "util": "^0.12.3",
-    "ytpl": "^2.1.0",
-    "ytsr": "^3.4.1"
+    "ytpl": "^2.2.1",
+    "ytsr": "^3.5.0"
   },
   "devDependencies": {
-    "ytdl-core": "^4.5.0"
+    "ytdl-core": "^4.8.0"
   }
 }
