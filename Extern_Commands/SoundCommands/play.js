@@ -4,6 +4,7 @@ const ytsr = require('ytsr');
 const sfdl = require('../Assets/sfdl');
 const group = require('../Assets/Groups');
 const AppendError = require('../Assets/AppendError');
+const skip = require('./skip');
 const name = "play";
 group.get("Music Commands").push(name);
 
@@ -30,7 +31,11 @@ async function play(msg, serverQueue, queue, start = false) {
                 serverQueue.songs.shift();
                 play(msg, serverQueue, queue, true);
             })
-            .on('error', (err => AppendError(err.message + " On line: 30, in file: play.js" + "\n")));
+            .on('error', (err => {
+                AppendError(err.message + " On line: 35, in file: play.js");
+                msg.channel.send("song not found");
+                skip.execute(msg)
+            }));
 
         //als hij t goed doet dan deelt hij de liedjes sound gedeeld door 5? en dan geeft hij een message met de song title
         serverQueue.connection.dispatcher.setVolume(serverQueue.volume);

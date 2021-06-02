@@ -1,6 +1,7 @@
 const ytsr = require('ytsr');
 const fetch = require('node-fetch');
 const AppendError = require('../Assets/AppendError');
+const skip = require('../SoundCommands/skip');
 let headers;
 let expires;
 
@@ -56,7 +57,11 @@ async function get(msg, url) {
                     try {
                         if (track === null) {
                             AppendError("Track not found on line: 57, in file: sfdl.js");
-                            return;
+                            if (songs > 1) {
+                                skip.execute(msg);
+                            }
+
+
                         }
                         const song = await searchYT(track.artists[0].name + ' ' + track.name, track);
                         if (!song) {
