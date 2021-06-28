@@ -15,6 +15,7 @@ async function refreshToken() {
         console.log(error)
     }
 }
+
 refreshToken().then();
 
 /**
@@ -26,9 +27,9 @@ refreshToken().then();
  * } else {
  *  // Array of songs
  * }
- * 
- * @param {*} msg 
- * @param {*} url 
+ *
+ * @param {*} msg
+ * @param {*} url
  * @returns {song | songs}
  */
 async function get(msg, url) {
@@ -44,10 +45,10 @@ async function get(msg, url) {
 
         if (playlist_id) {
             const songs = [];
-            let  next = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=0&limit=100`;
+            let next = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?offset=0&limit=100`;
 
-            while (next){
-                const result = (await(await fetch(next,  { headers },
+            while (next) {
+                const result = (await (await fetch(next, {headers},
                 )).json());
 
                 const tracks = (result.tracks || result);
@@ -80,7 +81,7 @@ async function get(msg, url) {
             // get 'limit' tracks and parse it
             return {songs};
         } else if (song_id) { //dit is voor 1 nummer
-           const track = await (await fetch(`https://api.spotify.com/v1/tracks/${song_id}/`,
+            const track = await (await fetch(`https://api.spotify.com/v1/tracks/${song_id}/`,
                 {headers},
             )).json();
             let song = await searchYT(track.name + ' ' + track.artists[0].name, track);

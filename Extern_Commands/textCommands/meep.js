@@ -14,6 +14,7 @@ module.exports = {
     description: "Gives a random hentai \uD83D\uDE33.",
     usage: '!meep *engels*'
 }
+
 // bij start staat de optie voor engels op false, en pakt hij maar 1 hentai
 async function getRandomHentai(english = false, count = 1) {
     //hij pakt een random hentai, je hebt de optie voor english en als dat true is dan pakt ie GET en anders false = head

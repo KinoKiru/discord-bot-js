@@ -156,7 +156,7 @@ module.exports = {
                         serverQueue.songs.push(song);
                     }
                 } catch (error) {
-                    AppendError(error + " on line: 151, in file: play.js" + "\n");
+                    AppendError(error + " on line: 151, in file: play.js");
                 }
             } else {
                 //hier pak ik de argumenten en plaats ik die bij elkaar en gooi ik er een spatie tussen
